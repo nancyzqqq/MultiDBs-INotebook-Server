@@ -11,10 +11,10 @@ public class Notebook {
 	public static boolean RunNotebook() {
 		Runtime runtime = Runtime.getRuntime();
 		String systemName = System.getProperty("os.name").toLowerCase();
-		File file = null;
+		File file;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String input = null;
-		Process process = null;
+		String input;
+		Process process;
 		System.out.print("input username: ");
 		try {
 			input = br.readLine();// user type in username. (temporary implementation)
@@ -48,6 +48,7 @@ public class Notebook {
 			e.printStackTrace();
 			return false;
 		}
+                
 		try {
 			Thread.sleep(3600000);// Auto-destroy the process after an hour. (temporary implementation)
 			process.destroy();
