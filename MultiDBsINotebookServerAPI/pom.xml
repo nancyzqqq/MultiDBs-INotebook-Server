@@ -55,6 +55,10 @@
             <artifactId>jetty-servlet</artifactId>
             <version>${jettyVersion}</version>
         </dependency>
+<<<<<<< HEAD
+=======
+        
+>>>>>>> FETCH_HEAD
         <dependency>
             <groupId>edu.pitt.sis.infsci2711</groupId>
             <artifactId>multidbsutils</artifactId>
