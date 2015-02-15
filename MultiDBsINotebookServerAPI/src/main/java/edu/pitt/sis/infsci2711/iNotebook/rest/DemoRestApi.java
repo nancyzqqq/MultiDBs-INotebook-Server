@@ -7,21 +7,21 @@ package edu.pitt.sis.infsci2711.iNotebook.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
  * @author Wu
  */
-@Path("/hello")
-public class Search {
-
-    @GET
-    @Path("{name}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String sayHello(@PathParam("name") String name) {
-        return name;
-    }
+@Path("Demo/")
+public class DemoRestApi {
+	
+	@Path("helloWorld")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response helloWorld() {
+		return Response.status(200).entity("{\"msg\" : \"Hello World\"}").build();
+	}
 }
