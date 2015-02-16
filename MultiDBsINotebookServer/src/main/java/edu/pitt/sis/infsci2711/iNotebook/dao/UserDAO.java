@@ -12,16 +12,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.pitt.sis.infsci2711.iNotebook.models.PersonDBModel;
+import edu.pitt.sis.infsci2711.iNotebook.models.UserDBModel;
 import edu.pitt.sis.infsci2711.iNotebook.utils.JdbcUtil;
 
 /**
  *
  * @author Wu
  */
-public class PersonDAO {
+public class UserDAO {
     
-    public static List<PersonDBModel> findAll() throws SQLException, Exception {
+    public static List<UserDBModel> findAll() throws SQLException, Exception {
         
         try (Connection connection = JdbcUtil.getConnection()) {
             String sql = "SELECT * FROM Person";
@@ -29,10 +29,10 @@ public class PersonDAO {
                 
                 ResultSet resultSet = statement.executeQuery(sql);
                 
-                List<PersonDBModel> result = new ArrayList<PersonDBModel>();
+                List<UserDBModel> result = new ArrayList<UserDBModel>();
                 
                 while (resultSet.next()) {
-                    result.add(new PersonDBModel(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
+                    result.add(new UserDBModel(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
                 }
                 
                 return result;
@@ -41,7 +41,7 @@ public class PersonDAO {
         
     }
     
-    public static PersonDBModel findById(final int id) throws SQLException, Exception {
+    public static UserDBModel findById(final int id) throws SQLException, Exception {
         
         try (Connection connection = JdbcUtil.getConnection()) {
             String sql = "SELECT * FROM Person where id = " + id;
@@ -50,7 +50,7 @@ public class PersonDAO {
                 ResultSet resultSet = statement.executeQuery(sql);
                 
                 while (resultSet.next()) {
-                    return new PersonDBModel(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+                    return new UserDBModel(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
                 }
                 
                 return null;
@@ -59,17 +59,17 @@ public class PersonDAO {
         
     }
     
-    public static int save(final PersonDBModel person) throws SQLException, Exception {
+    public static int save(final UserDBModel user) throws SQLException, Exception {
         
         try (Connection connection = JdbcUtil.getConnection()) {
-            String sql = String.format("INSERT INTO Person (firstName, lastName) VALUES ('%s', '%s')", person.getFirstName(), person.getLastName());
+            String sql = String.format("INSERT INTO Person (username, password) VALUES ('%s', '%s')", user.getUserName(), user.getPassword());
             try (Statement statement = connection.createStatement()) {
                 
                 int res = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
                 
                 ResultSet rs = statement.getGeneratedKeys();
                 if (rs.next()) {
-                    person.setId(rs.getInt(1));
+                    user.setId(rs.getInt(1));
                 }
                 
                 return res;
@@ -86,6 +86,41 @@ public class PersonDAO {
                 System.out.println(sql);
                 int res = statement.executeUpdate(sql);
                 
+            }
+        }
+    }
+
+    public static boolean checkUserName(final UserDBModel user) throws Exception {
+        try (Connection connection = JdbcUtil.getConnection()) {
+            String sql = String.format("SELECT FROM User where username = '%s'", user.getUserName());
+            boolean res = false;
+            try (Statement statement = connection.createStatement()) {
+                
+                ResultSet rs = statement.executeQuery(sql);
+                
+                if (rs.next()) {
+                    res = true;
+                }
+                
+                return res;
+            }
+        }
+    }
+
+    public static UserDBModel checkUser(final UserDBModel user) throws Exception {
+        try (Connection connection = JdbcUtil.getConnection()) {
+            String sql = String.format("SELECT FROM User where username = '%s' and  password = '%s'", user.getUserName(), user.getPassword());
+            try (Statement statement = connection.createStatement()) {
+                
+                ResultSet rs = statement.executeQuery(sql);
+                
+                if (rs.next()) {
+                    user.setId(rs.getInt(1));
+                } else {
+                    return null;
+                }
+                
+                return user;
             }
         }
     }
