@@ -31,8 +31,9 @@ public class UserService {
     }
 
     // check username validation
-    public boolean checkUserName(final UserDBModel person) throws Exception {
-        boolean result = UserDAO.checkUserName(person);
+    public boolean checkUserName(final String userName) throws Exception {
+        
+        boolean result = UserDAO.checkUserName(userName);
 
         return result;
     }

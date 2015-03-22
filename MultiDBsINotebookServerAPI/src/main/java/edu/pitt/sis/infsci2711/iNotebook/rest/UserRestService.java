@@ -20,7 +20,6 @@ import edu.pitt.sis.infsci2711.iNotebook.models.UserDBModel;
 import edu.pitt.sis.infsci2711.iNotebook.viewModels.User;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 
 /**
@@ -35,9 +34,15 @@ public class UserRestService {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response checkUserNmae(final User user){
+    public Response checkUserName(final String userName){
+        UserService userService = new UserService();
         try {
-            return null;
+        boolean usersDB = userService.checkUserName(userName);
+        if(usersDB==false){
+        return Response.status(200).build();
+        }else{
+            return Response.status(500).build();
+        }
         }catch(Exception e){
             return Response.status(500).build();
         }

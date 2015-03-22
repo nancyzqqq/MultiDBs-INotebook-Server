@@ -91,9 +91,9 @@ public class UserDAO {
         }
     }
 
-    public static boolean checkUserName(final UserDBModel user) throws Exception {
+    public static boolean checkUserName(final String userName) throws Exception {
         try (Connection connection = JdbcUtil.getConnection()) {
-            String sql = String.format("SELECT FROM User where username = '%s'", user.getUserName());
+            String sql = String.format("SELECT FROM User where username = '%s'", userName);
             boolean res = false;
             try (Statement statement = connection.createStatement()) {
                 
