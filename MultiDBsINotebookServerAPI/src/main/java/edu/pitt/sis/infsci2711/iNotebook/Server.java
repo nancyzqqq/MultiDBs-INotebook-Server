@@ -15,9 +15,7 @@ public class Server {
 
     public static void main(final String[] args) throws Exception {
         final JerseyJettyServer server = new JerseyJettyServer(7654, "edu.pitt.sis.infsci2711.tutorial.rest");
-
         Thread serverTread = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 try {

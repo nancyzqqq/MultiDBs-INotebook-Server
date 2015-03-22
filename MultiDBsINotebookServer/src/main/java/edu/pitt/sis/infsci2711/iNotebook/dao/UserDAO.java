@@ -61,6 +61,7 @@ public class UserDAO {
     
     public static int save(final UserDBModel user) throws SQLException, Exception {
         
+        
         try (Connection connection = JdbcUtil.getConnection()) {
             String sql = String.format("INSERT INTO Person (username, password) VALUES ('%s', '%s')", user.getUserName(), user.getPassword());
             try (Statement statement = connection.createStatement()) {

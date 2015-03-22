@@ -16,7 +16,6 @@ public class UserDBModel {
     private String password;
     
     public UserDBModel() {
-        
     }
     
     public UserDBModel(final String userName) {
