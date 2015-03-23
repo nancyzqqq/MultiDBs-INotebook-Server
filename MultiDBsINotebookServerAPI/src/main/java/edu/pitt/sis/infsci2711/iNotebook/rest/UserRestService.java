@@ -72,8 +72,14 @@ public class UserRestService {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(final User user){
+        UserService userService = new UserService();
         try {
-            return null;
+            UserDBModel usersDB = userService.checkUser(convertViewModelToDB(user));
+            
+            User userLogin = convertDbToViewModel(usersDB);
+            
+            return Response.status(200).entity(userLogin).build();
+            
         }catch(Exception e){
             return Response.status(500).build();
         }

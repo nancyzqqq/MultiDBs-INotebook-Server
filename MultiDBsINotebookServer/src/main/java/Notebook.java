@@ -15,14 +15,17 @@ public class Notebook {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String input;
 		Process process;
+		
+		// user type in username. (temporary implementation)
 		System.out.print("input username: ");
 		try {
-			input = br.readLine();// user type in username. (temporary implementation)
+			input = br.readLine();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return false;
 		}
+		//should get userid, and create directory by userid
 
 		if (systemName.contains("windows")) {
 			file = new File("C:\\notebook\\" + input);// windows directory path
